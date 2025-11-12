@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nike Perú — Tienda Ejemplo</title>
+  <!-- Tipografía (Google Fonts) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="nikestyle.css">
+</head>
+<body>
+  <!-- Encabezado -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#" class="brand">
+        <img src="logo-nike.png" alt="Logo Nike Perú" style="height:40px;">
+        <span style="font-weight:700; margin-left:8px;">Nike Perú</span>
+      </a>
+      <nav class="main-nav" aria-label="Menú principal">
+        <button class="nav-toggle" aria-expanded="false" aria-controls="menu">☰</button>
+        <ul id="menu" class="menu">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#productos">Productos</a></li>
+          <li><a href="#multimedia">Multimedia</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+          <li><a href="catalogo.html">Catálogo</a></li>
+        </ul>
+      </nav>
+      <!-- Ícono del carrito -->
+      <div class="cart-icon" id="cart-icon" style="cursor:pointer;">
+      🛒<span id="cart-count">0</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Cuerpo principal: Grid y secciones -->
+  <main>
+    <!-- Hero con imagen adaptativa -->
+    <section id="inicio" class="hero">
+      <div class="container hero-grid">
+        <picture>
+          
+          <img src="campaña.jpg" alt="Campaña Nike Perú" class="hero-img">
+        </picture>
+        <div class="hero-copy">
+          <h1 style="color:aqua">Bienvenido a Nike Perú</h1>
+          <p style="color:aqua">Calzado, indumentaria y accesorios para tus entrenamientos y estilo diario. Envíos a todo el país.</p>
+          <a class="btn" href="#productos">Ver colección</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Productos: ejemplo usando Grid -->
+    <section id="productos" class="productos container">
+      <h2 style="color:aqua">Destacados</h2>
+      <div class="grid-productos">
+        <article class="card">
+          <img src="NikeRunning.jpeg" alt="Zapatilla Running">
+          <div class="card-body">
+            <h3>Zapatilla Running</h3>
+            <p class="price">S/ 349.00</p>
+            <button class="btn-sm add-to-cart" data-name="Zapatilla Running" data-price="349">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="polera.jpg" alt="Polera Dry-Fit">
+          <div class="card-body">
+            <h3>Polera Dry-Fit</h3>
+            <p class="price">S/ 129.00</p>
+            <button class="btn-sm add-to-cart" data-name="Polera Dry-Fit" data-price="129">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="mochila.jpg" alt="Mochila">
+          <div class="card-body">
+            <h3>Mochila</h3>
+            <p class="price">S/ 199.00</p>
+            <button class="btn-sm add-to-cart" data-name="Mochila" data-price="199">Agregar al carrito</button>
+          </div>
+        </article>
+      </div>
+      <!-- Modal del carrito -->
+    <div id="cart-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <h2>Tu carrito</h2>
+        <ul id="cart-items"></ul>
+        <p><strong>Total:</strong> S/ <span id="cart-total">0</span></p>
+        <button id="checkout-btn" class="btn">Continuar compra</button>
+        <button id="close-cart" class="btn btn-ghost">Cerrar</button>
+      </div>
+    </div>
+
+    <!-- datos del comprador -->
+    <div id="checkout-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <h2 style="color:#00bfff; text-align:center; font-family:'Montserrat',sans-serif;">Datos del comprador</h2>
+        <form id="checkout-form">
+          <label>Nombre:</label><input type="text" id="nombre" required>
+          <label>Apellido:</label><input type="text" id="apellido" required>
+          <label>Celular:</label><input type="tel" id="celular" required>
+          <label>Dirección:</label><input type="text" id="direccion" required>
+          <label>Correo electrónico:</label><input type="email" id="correo" required>
+          <button type="submit" class="btn">Confirmar compra</button>
+          <button type="button" id="close-checkout" class="btn btn-ghost">Cancelar</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- métodos de pago -->
+    <div id="payment-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <h2>Selecciona método de pago</h2>
+        <div class="payment-options">
+          <button id="yape-btn" class="btn">Pagar con Yape</button>
+          <button id="plin-btn" class="btn">Pagar con Plin</button>
+        </div>
+        <div id="qr-section" style="margin-top:1rem;"></div>
+        <button id="close-payment" class="btn btn-ghost">Cerrar</button>
+      </div>
+    </div>
+
+      <!-- Tabla de tallas / estructura de datos -->
+      <h3 style="color:aqua">Tabla de tallas (referencial)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Talla (US)</th>
+              <th>Longitud (cm)</th>
+              <th>Consejo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>7</td>
+              <td>25.0</td>
+              <td>Elige tu talla habitual</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td>26.0</td>
+              <td>Para pies anchos recomendamos medio número mayor</td>
+            </tr>
+            <tr>
+              <td>9</td>
+              <td>27.0</td>
+              <td>Perfecto para entrenamientos</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Multimedia: audio y video integrados -->
+    <section id="multimedia" class="multimedia container">
+    
+      
+      <h2 style="color:aqua">Multimedia</h2>
+      <div class="media-grid">
+        <figure>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/uXlWYZ022zU?si=yAre-yt5j355QvbX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <figcaption>Video promocional</figcaption>
+        </figure>
+        
+          
+        <figure>
+          <audio controls preload="none">
+            <source src="audioPromocional.mp3">
+          </audio>
+          <figcaption>Mensaje de la campaña (ejemplo)</figcaption>
+        </figure>
+      </div>
+    </section>
+    
+
+    <!-- Formulario de contacto -->
+    <section id="contacto" class="contacto container">
+
+      <h2 style="color:aqua">Contacto</h2>
+      <form action="#" method="post" class="form" novalidate>
+        <div class="form-grid">
+          <label for="nombre">Nombre</label>
+          <input id="nombre" name="nombre" type="text" required placeholder="Tu nombre">
+
+          <label for="email">Correo</label>
+          <input id="email" name="email" type="email" required placeholder="ejemplo@correo.com">
+
+          <label for="telefono">Teléfono</label>
+          <input id="telefono" name="telefono" type="text" placeholder="(opc.)">
+
+          <label for="asunto">Asunto</label>
+          <input id="asunto" name="asunto" type="text" required>
+
+          <label for="mensaje">Mensaje</label>
+          <textarea id="mensaje" name="mensaje" rows="5" required placeholder="Escribe tu consulta"></textarea>
+
+          <label for="archivo">Adjuntar imagen (opc.)</label>
+          <input id="archivo" name="archivo" type="file" accept="image/*">
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn">Enviar mensaje</button>
+          <button type="reset" class="btn btn-ghost">Limpiar</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <!-- Pie de página con íconos SVG y enlaces -->
+  <footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <h4 style="color:aqua">Nike Perú</h4>
+      <p style="color:aqua">Dirección de tienda • Lima, Perú</p>
+    </div>
+
+    <div>
+      <h4 style="color:aqua">Nuestras redes oficiales</h4>
+      <ul class="social">
+        <!-- Instagram -->
+        <li>
+          <a href="https://www.instagram.com/nike/" target="_blank" rel="noopener noreferrer" aria-label="Instagram oficial de Nike">
+            <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zM12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6zM18.4 6.2a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8z" fill="#00bfff"/>
+            </svg>
+          </a>
+        </li>
+
+        <!-- Facebook -->
+        <li>
+          <a href="https://www.facebook.com/nike/" target="_blank" rel="noopener noreferrer" aria-label="Facebook oficial de Nike">
+            <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M22 12a10 10 0 1 0-11.5 9.9v-7H8.5v-3h2v-2.3c0-2 1.2-3.1 3-3.1.9 0 1.8.1 1.8.1v2h-1c-1 0-1.3.6-1.3 1.2V12h2.3l-.4 3h-1.9v7A10 10 0 0 0 22 12z" fill="#00bfff"/>
+            </svg>
+          </a>
+        </li>
+
+        <!-- TikTok -->
+        <li>
+          <a href="https://www.tiktok.com/@nike" target="_blank" rel="noopener noreferrer" aria-label="TikTok oficial de Nike">
+            <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12.6 2h2.3c.1.9.4 1.7.9 2.5.7.8 1.7 1.3 2.8 1.4v2.4c-1.6 0-3.1-.6-4.4-1.5v7.2a5.8 5.8 0 1 1-5.8-5.8c.3 0 .7 0 1 .1v2.5c-.3-.1-.7-.1-1-.1a3.3 3.3 0 1 0 3.3 3.3V2z" fill="#00bfff"/>
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <p style="color:aqua">© <span id="year"></span> Nike Perú  </p>
+    </div>
+  </div>
+</footer>
+
+  <script>
+    // Pequeño script para control del menú responsive y año dinámico
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const toggle = document.querySelector('.nav-toggle');
+    const menu = document.getElementById('menu');
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true' || false;
+      toggle.setAttribute('aria-expanded', !expanded);
+      menu.classList.toggle('open');
+    });
+
+    // Validación simple del formulario (ejemplo)
+    const form = document.querySelector('.form');
+    form.addEventListener('submit', (e) => {
+      // Previene envío real para este ejemplo
+      e.preventDefault();
+      alert('Gracias. Tu mensaje ha sido recibido (ejemplo).');
+      form.reset();
+    });
+  </script>
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Recuperar el carrito compartido con el catálogo
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  const cartIcon = document.getElementById("cart-icon");
+  const cartModal = document.getElementById("cart-modal");
+  const cartItems = document.getElementById("cart-items");
+  const cartTotal = document.getElementById("cart-total");
+  const cartCount = document.getElementById("cart-count");
+  const checkoutModal = document.getElementById("checkout-modal");
+  const paymentModal = document.getElementById("payment-modal");
+
+  // Función para actualizar la vista del carrito
+  function updateCart() {
+    cartItems.innerHTML = "";
+    let total = 0;
+
+    cart.forEach((item) => {
+      const li = document.createElement("li");
+      li.textContent = `${item.name} - S/ ${item.price.toFixed(2)}`;
+      cartItems.appendChild(li);
+      total += item.price;
+    });
+
+    cartTotal.textContent = total.toFixed(2);
+    cartCount.textContent = cart.length;
+
+    // Guardar en localStorage
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
+
+  //Actualizar contador y contenido al cargar
+  updateCart();
+
+  // Agregar productos directamente desde la página principal
+  document.querySelectorAll(".add-to-cart").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const name = btn.dataset.name;
+      const price = parseFloat(btn.dataset.price);
+      cart.push({ name, price });
+      updateCart();
+      alert(`${name} agregado al carrito.`);
+    });
+  });
+
+  // Mostrar el carrito manualmente al hacer clic en el icono
+  cartIcon.addEventListener("click", () => {
+    updateCart();
+    cartModal.style.display = "block";
+  });
+
+  // Cerrar carrito
+  document.getElementById("close-cart").addEventListener("click", () => {
+    cartModal.style.display = "none";
+  });
+
+  // Abrir formulario de datos
+  document.getElementById("checkout-btn").addEventListener("click", () => {
+    cartModal.style.display = "none";
+    checkoutModal.style.display = "block";
+  });
+
+  // Cerrar formulario
+  document.getElementById("close-checkout").addEventListener("click", () => {
+    checkoutModal.style.display = "none";
+  });
+
+  // Confirmar compra y mostrar métodos de pago
+  document.getElementById("checkout-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    checkoutModal.style.display = "none";
+    paymentModal.style.display = "block";
+  });
+
+  // Mostrar QR según el método elegido
+  document.getElementById("yape-btn").addEventListener("click", () => {
+    document.getElementById("qr-section").innerHTML =
+      '<h3>Yape QR</h3><img src="yape-qr.png" width="200">';
+  });
+
+  document.getElementById("plin-btn").addEventListener("click", () => {
+    document.getElementById("qr-section").innerHTML =
+      '<h3>Plin QR</h3><img src="plin-qr.png" width="200">';
+  });
+
+  // Cerrar ventana de pago
+  document.getElementById("close-payment").addEventListener("click", () => {
+    paymentModal.style.display = "none";
+  });
+
+  // Limpiar carrito al cerrar o recargar (opcional)
+  window.addEventListener("beforeunload", () => {
+    localStorage.removeItem("cart");
+  });
+});
+</script>
+ <script>
+document.addEventListener('DOMContentLoaded', () => {
+  // CONTACT FORM (form.contacto) -> enviar a save_contact.php
+  const contactoForm = document.querySelector('.contacto form.form');
+  if (contactoForm) {
+    contactoForm.addEventListener('submit', async function(e) {
+      e.preventDefault(); // mantenemos la UX sin recarga
+
+      const fd = new FormData(contactoForm); // incluye archivo si lo adjuntaron
+
+      try {
+        const resp = await fetch('/nike/save_contact.php', {
+          method: 'POST',
+          body: fd
+        });
+        const data = await resp.json();
+        if (data.success) {
+          alert('Gracias — tu mensaje fue enviado correctamente.');
+          contactoForm.reset();
+        } else {
+          alert('Error: ' + (data.error || 'Error desconocido'));
+        }
+      } catch (err) {
+        console.error(err);
+        alert('No se pudo conectar con el servidor.');
+      }
+    });
+  }
+
+  // CHECKOUT FORM (en modal) -> enviar a save_order.php
+  const checkoutForm = document.getElementById('checkout-form');
+  if (checkoutForm) {
+    // Nota: tu código actual previene el envío; vamos a enviar también los datos al servidor
+    checkoutForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      // recolectar campos
+      const nombre = document.getElementById('nombre').value || '';
+      const apellido = document.getElementById('apellido').value || '';
+      const celular = document.getElementById('celular').value || '';
+      const direccion = document.getElementById('direccion').value || '';
+      const correo = document.getElementById('correo').value || '';
+
+      // recoger items del carrito (tomamos del localStorage como en tu script)
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      // calcular total
+      let total = cart.reduce((acc, it) => acc + (Number(it.price) || 0), 0);
+
+      // armar FormData
+      const fd = new FormData();
+      fd.append('nombre', nombre);
+      fd.append('apellido', apellido);
+      fd.append('celular', celular);
+      fd.append('direccion', direccion);
+      fd.append('correo', correo);
+      fd.append('items', JSON.stringify(cart));
+      fd.append('total', total);
+
+      try {
+        const resp = await fetch('/nike/save_order.php', {
+          method: 'POST',
+          body: fd
+        });
+        const data = await resp.json();
+        if (data.success) {
+          // Mantener tu flujo: cerrar modal y abrir paymentModal
+          alert('Pedido guardado. ID: ' + (data.order_id ?? '—'));
+          // limpiar carrito si quieres
+          localStorage.removeItem('cart');
+          // cerrar el modal de checkout (tu HTML lo maneja)
+          document.getElementById('checkout-modal').style.display = 'none';
+          // mostrar opciones de pago
+          document.getElementById('payment-modal').style.display = 'block';
+        } else {
+          alert('Error al guardar pedido: ' + (data.error || 'Error desconocido'));
+        }
+      } catch (err) {
+        console.error(err);
+        alert('No se pudo conectar con el servidor para guardar el pedido.');
+      }
+    });
+  }
+});
+</script> 
+</body>
+</html>
