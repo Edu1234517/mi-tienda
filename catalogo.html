@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Catálogo | Nike Perú</title>
+  <link rel="stylesheet" href="nike style.css">
+  <style>
+    .catalogo {
+      text-align: center;
+      padding: 2rem 0;
+      color: aqua;
+    }
+    .catalogo h1 {
+      font-family: 'Montserrat', sans-serif;
+      margin-bottom: 1rem;
+    }
+    .grid-catalogo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .producto {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease;
+    }
+    .producto:hover {
+      transform: translateY(-8px);
+    }
+    .producto img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      border-radius: 15px 15px 0 0;
+    }
+    .info {
+      padding: 1rem;
+    }
+    .info h3 {
+      margin: 0.3rem 0;
+      color: #111;
+    }
+    .info p {
+      font-weight: bold;
+      color: #00bfff;
+    }
+    .btn-agregar {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.6rem 1rem;
+      background: #111;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .btn-agregar:hover {
+      background: #00bfff;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="nike avance2.html" class="brand">
+        <img src="logo-nike.png" alt="Logo Nike Perú" style="height:40px;">
+        <span style="font-weight:700; margin-left:8px;">Nike Perú</span>
+      </a>
+      <nav class="main-nav">
+        <ul class="menu">
+          <li><a href="nike avance2.html#inicio">Inicio</a></li>
+          <li><a href="nike avance2.html#productos">Productos</a></li>
+          <li><a href="catalogo.html">Catálogo</a></li>
+          <li><a href="nike avance2.html#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+      <div class="cart-icon" id="cart-icon">🛒<span id="cart-count">0</span></div>
+    </div>
+  </header>
+
+  <section class="catalogo">
+    <h1>Catálogo Exclusivo</h1>
+    <div class="grid-catalogo">
+      <div class="producto">
+        <img src="zapatillas1.jpg" alt="Air Max Pro">
+        <div class="info">
+          <h3>Air Max Pro</h3>
+          <p>S/ 499.00</p>
+          <button class="btn-agregar add-to-cart" data-name="Air Max Pro" data-price="499">Agregar al carrito</button>
+        </div>
+      </div>
+      <div class="producto">
+        <img src="zapatillas2.jpg" alt="Cortez Classic">
+        <div class="info">
+          <h3>Cortez Classic</h3>
+          <p>S/ 379.00</p>
+          <button class="btn-agregar add-to-cart" data-name="Cortez Classic" data-price="379">Agregar al carrito</button>
+        </div>
+      </div>
+      <div class="producto">
+        <img src="zapatillas3.jpg" alt="Zoom Fly">
+        <div class="info">
+          <h3>Zoom Fly</h3>
+          <p>S/ 420.00</p>
+          <button class="btn-agregar add-to-cart" data-name="Zoom Fly" data-price="420">Agregar al carrito</button>
+        </div>
+      </div>
+      <div class="producto">
+        <img src="buzo.jpg" alt="Buzo Deportivo">
+        <div class="info">
+          <h3>Buzo Deportivo</h3>
+          <p>S/ 199.00</p>
+          <button class="btn-agregar add-to-cart" data-name="Buzo Deportivo" data-price="199">Agregar al carrito</button>
+        </div>
+      </div>
+      <div class="producto">
+        <img src="gorra.jpg" alt="Gorra Nike Fit">
+        <div class="info">
+          <h3>Gorra Nike Fit</h3>
+          <p>S/ 89.00</p>
+          <button class="btn-agregar add-to-cart" data-name="Gorra Nike Fit" data-price="89">Agregar al carrito</button>
+        </div>
+      </div>
+      <div class="producto">
+        <img src="camiseta.jpg" alt="Camiseta Dry Fit">
+        <div class="info">
+          <h3>Camiseta Dry Fit</h3>
+          <p>S/ 109.00</p>
+          <button class="btn-agregar add-to-cart" data-name="Camiseta Dry Fit" data-price="109">Agregar al carrito</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Recuperar carrito compartido o crear uno nuevo
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const cartCount = document.getElementById("cart-count");
+
+  // Mostrar la cantidad actual en el contador
+  cartCount.textContent = cart.length;
+
+  // Cuando se haga clic en "Agregar al carrito"
+  document.querySelectorAll(".add-to-cart").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const name = btn.dataset.name;
+      const price = parseFloat(btn.dataset.price);
+
+      // Agregar el producto al carrito compartido
+      cart.push({ name, price });
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      // Actualizar el contador visual
+      cartCount.textContent = cart.length;
+
+      alert(`${name} agregado al carrito.`);
+    });
+  });
+
+  // Si se hace clic en el icono del carrito, redirigir a la página principal
+  document.getElementById("cart-icon").addEventListener("click", () => {
+    window.location.href = "nike avance2.html";
+  });
+});
+</script>
+</body>
+</html>
